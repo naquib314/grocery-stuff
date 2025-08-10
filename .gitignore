@@ -1,0 +1,26 @@
+# PyCharm
+.idea/
+
+# macOS
+.DS_Store
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Log files
+*.log
+logs/
+
+# Temporary files
+tmp/
+
+# Cache directories
+__pycache__/
+
+# Python virtual environments
+.venv/
+
+# Docs
+docs/

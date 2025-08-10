@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery Price Checker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .search-section {
+            padding: 40px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-button, .compare-button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-button {
+            background: #667eea;
+            color: white;
+        }
+
+        .search-button:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+        }
+
+        .compare-button {
+            background: #48bb78;
+            color: white;
+        }
+
+        .compare-button:hover {
+            background: #38a169;
+            transform: translateY(-2px);
+        }
+
+        .results-section {
+            padding: 40px;
+        }
+
+        .results-header {
+            margin-bottom: 30px;
+        }
+
+        .results-header h2 {
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .product-store {
+            color: #667eea;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #48bb78;
+            margin-bottom: 8px;
+        }
+
+        .product-category {
+            background: #e9ecef;
+            color: #6c757d;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .product-unit {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .comparison-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .comparison-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .comparison-title {
+            font-size: 1.3rem;
+            color: #2d3748;
+        }
+
+        .price-savings {
+            background: #48bb78;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+
+        .error {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+
+        @media (max-width: 768px) {
+            .search-container {
+                flex-direction: column;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛒 Grocery Price Checker</h1>
+            <p>Find the best deals across Walmart, Target, and Hannaford</p>
+        </div>
+
+        <div class="search-section">
+            <div class="search-container">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-input" 
+                    placeholder="Search for products (e.g., milk, bananas, bread...)"
+                >
+                <button onclick="searchProducts()" class="search-button">Search</button>
+                <button onclick="compareProducts()" class="compare-button">Compare Prices</button>
+            </div>
+        </div>
+
+        <div class="results-section">
+            <div id="results"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = '/api';
+
+        async function searchProducts() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (!query) {
+                alert('Please enter a search term');
+                return;
+            }
+
+            showLoading();
+
+            try {
+                const response = await fetch(`${API_BASE}/products/search?q=${encodeURIComponent(query)}`);
+                const data = await response.json();
+
+                if (response.ok) {
+                    displaySearchResults(data);
+                } else {
+                    showError(data.detail || 'An error occurred');
+                }
+            } catch (error) {
+                showError('Failed to fetch results. Please try again.');
+                console.error('Error:', error);
+            }
+        }
+
+        async function compareProducts() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (!query) {
+                alert('Please enter a product name to compare');
+                return;
+            }
+
+            showLoading();
+
+            try {
+                const response = await fetch(`${API_BASE}/products/compare?product_name=${encodeURIComponent(query)}`);
+                const data = await response.json();
+
+                if (response.ok) {
+                    displayComparisonResults(data);
+                } else {
+                    showError(data.detail || 'An error occurred');
+                }
+            } catch (error) {
+                showError('Failed to fetch comparison. Please try again.');
+                console.error('Error:', error);
+            }
+        }
+
+        function displaySearchResults(data) {
+            const resultsDiv = document.getElementById('results');
+
+            if (data.results.length === 0) {
+                resultsDiv.innerHTML = `
+                    <div class="no-results">
+                        <h2>No products found</h2>
+                        <p>Try searching for items like "milk", "bread", "bananas", or "chicken"</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const resultsHTML = `
+                <div class="results-header">
+                    <h2>Search Results for "${data.query}"</h2>
+                    <p>${data.total_results} products found</p>
+                </div>
+                <div class="results-grid">
+                    ${data.results.map(product => createProductCard(product)).join('')}
+                </div>
+            `;
+
+            resultsDiv.innerHTML = resultsHTML;
+        }
+
+        function displayComparisonResults(data) {
+            const resultsDiv = document.getElementById('results');
+            
+            // Sort products by price
+            const sortedProducts = data.products.sort((a, b) => a.price - b.price);
+            const cheapest = sortedProducts[0];
+            const mostExpensive = sortedProducts[sortedProducts.length - 1];
+
+            const comparisonHTML = `
+                <div class="comparison-section">
+                    <div class="comparison-header">
+                        <h2 class="comparison-title">Price Comparison: "${data.product_name}"</h2>
+                        ${data.price_difference > 0 ? `<div class="price-savings">Save up to $${data.price_difference.toFixed(2)}</div>` : ''}
+                    </div>
+                    <p><strong>Cheapest at:</strong> ${data.cheapest_store} - $${cheapest.price.toFixed(2)}</p>
+                    ${data.price_difference > 0 ? `<p><strong>Price Range:</strong> $${cheapest.price.toFixed(2)} - $${mostExpensive.price.toFixed(2)}</p>` : ''}
+                </div>
+                <div class="results-grid">
+                    ${sortedProducts.map((product, index) => createProductCard(product, index === 0)).join('')}
+                </div>
+            `;
+
+            resultsDiv.innerHTML = comparisonHTML;
+        }
+
+        function createProductCard(product, isCheapest = false) {
+            return `
+                <div class="product-card ${isCheapest ? 'cheapest' : ''}">
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-store">${product.store ? product.store.store_name : 'Unknown Store'}</div>
+                    <div class="product-price">$${product.price.toFixed(2)}</div>
+                    <div class="product-category">${product.category}</div>
+                    <div class="product-unit">per ${product.unit}</div>
+                    ${isCheapest ? '<div style="color: #48bb78; font-weight: 600; margin-top: 10px;">🏆 Best Price!</div>' : ''}
+                </div>
+            `;
+        }
+
+        function showLoading() {
+            document.getElementById('results').innerHTML = `
+                <div class="loading">
+                    <h2>🔍 Searching...</h2>
+                    <p>Please wait while we find the best deals for you</p>
+                </div>
+            `;
+        }
+
+        function showError(message) {
+            document.getElementById('results').innerHTML = `
+                <div class="error">
+                    <strong>Error:</strong> ${message}
+                </div>
+            `;
+        }
+
+        // Allow enter key to trigger search
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchProducts();
+            }
+        });
+
+        // Load some initial data on page load
+        window.addEventListener('load', function() {
+            // You can add some welcome content or featured products here
+            document.getElementById('results').innerHTML = `
+                <div class="no-results">
+                    <h2>Welcome to Grocery Price Checker! 🛒</h2>
+                    <p>Start by searching for products above or try these popular items:</p>
+                    <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                        <button onclick="document.getElementById('searchInput').value='milk'; searchProducts();" style="padding: 10px 20px; border: none; background: #667eea; color: white; border-radius: 5px; cursor: pointer;">Milk</button>
+                        <button onclick="document.getElementById('searchInput').value='bread'; searchProducts();" style="padding: 10px 20px; border: none; background: #667eea; color: white; border-radius: 5px; cursor: pointer;">Bread</button>
+                        <button onclick="document.getElementById('searchInput').value='bananas'; searchProducts();" style="padding: 10px 20px; border: none; background: #667eea; color: white; border-radius: 5px; cursor: pointer;">Bananas</button>
+                        <button onclick="document.getElementById('searchInput').value='chicken'; searchProducts();" style="padding: 10px 20px; border: none; background: #667eea; color: white; border-radius: 5px; cursor: pointer;">Chicken</button>
+                    </div>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>

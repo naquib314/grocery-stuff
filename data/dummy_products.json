@@ -1,0 +1,55 @@
+{
+  "stores": [
+    {
+      "store_id": "walmart_001",
+      "store_name": "Walmart",
+      "location": "Main Street, Downtown",
+      "products": [
+        {"product_id": "WM001", "name": "Organic Bananas", "price": 2.98, "category": "Produce", "unit": "lb"},
+        {"product_id": "WM002", "name": "Whole Milk", "price": 3.79, "category": "Dairy", "unit": "gallon"},
+        {"product_id": "WM003", "name": "Bread - Whole Wheat", "price": 2.48, "category": "Bakery", "unit": "loaf"},
+        {"product_id": "WM004", "name": "Ground Beef 80/20", "price": 5.98, "category": "Meat", "unit": "lb"},
+        {"product_id": "WM005", "name": "Chicken Breast", "price": 4.98, "category": "Meat", "unit": "lb"},
+        {"product_id": "WM006", "name": "Eggs - Large Grade A", "price": 2.97, "category": "Dairy", "unit": "dozen"},
+        {"product_id": "WM007", "name": "Apples - Honeycrisp", "price": 4.98, "category": "Produce", "unit": "lb"},
+        {"product_id": "WM008", "name": "Rice - Jasmine", "price": 3.98, "category": "Pantry", "unit": "2lb bag"},
+        {"product_id": "WM009", "name": "Pasta - Spaghetti", "price": 1.28, "category": "Pantry", "unit": "1lb box"},
+        {"product_id": "WM010", "name": "Olive Oil - Extra Virgin", "price": 7.98, "category": "Pantry", "unit": "500ml"}
+      ]
+    },
+    {
+      "store_id": "target_001",
+      "store_name": "Target",
+      "location": "Shopping Center, Midtown",
+      "products": [
+        {"product_id": "TG001", "name": "Organic Bananas", "price": 3.19, "category": "Produce", "unit": "lb"},
+        {"product_id": "TG002", "name": "Whole Milk", "price": 4.09, "category": "Dairy", "unit": "gallon"},
+        {"product_id": "TG003", "name": "Bread - Whole Wheat", "price": 2.79, "category": "Bakery", "unit": "loaf"},
+        {"product_id": "TG004", "name": "Ground Beef 80/20", "price": 6.49, "category": "Meat", "unit": "lb"},
+        {"product_id": "TG005", "name": "Chicken Breast", "price": 5.49, "category": "Meat", "unit": "lb"},
+        {"product_id": "TG006", "name": "Eggs - Large Grade A", "price": 3.29, "category": "Dairy", "unit": "dozen"},
+        {"product_id": "TG007", "name": "Apples - Honeycrisp", "price": 5.29, "category": "Produce", "unit": "lb"},
+        {"product_id": "TG008", "name": "Rice - Jasmine", "price": 4.29, "category": "Pantry", "unit": "2lb bag"},
+        {"product_id": "TG009", "name": "Pasta - Spaghetti", "price": 1.49, "category": "Pantry", "unit": "1lb box"},
+        {"product_id": "TG010", "name": "Olive Oil - Extra Virgin", "price": 8.99, "category": "Pantry", "unit": "500ml"}
+      ]
+    },
+    {
+      "store_id": "hannaford_001",
+      "store_name": "Hannaford",
+      "location": "Market Square, Eastside",
+      "products": [
+        {"product_id": "HF001", "name": "Organic Bananas", "price": 2.89, "category": "Produce", "unit": "lb"},
+        {"product_id": "HF002", "name": "Whole Milk", "price": 3.89, "category": "Dairy", "unit": "gallon"},
+        {"product_id": "HF003", "name": "Bread - Whole Wheat", "price": 2.59, "category": "Bakery", "unit": "loaf"},
+        {"product_id": "HF004", "name": "Ground Beef 80/20", "price": 6.19, "category": "Meat", "unit": "lb"},
+        {"product_id": "HF005", "name": "Chicken Breast", "price": 5.19, "category": "Meat", "unit": "lb"},
+        {"product_id": "HF006", "name": "Eggs - Large Grade A", "price": 3.19, "category": "Dairy", "unit": "dozen"},
+        {"product_id": "HF007", "name": "Apples - Honeycrisp", "price": 4.89, "category": "Produce", "unit": "lb"},
+        {"product_id": "HF008", "name": "Rice - Jasmine", "price": 4.09, "category": "Pantry", "unit": "2lb bag"},
+        {"product_id": "HF009", "name": "Pasta - Spaghetti", "price": 1.39, "category": "Pantry", "unit": "1lb box"},
+        {"product_id": "HF010", "name": "Olive Oil - Extra Virgin", "price": 8.49, "category": "Pantry", "unit": "500ml"}
+      ]
+    }
+  ]
+}
